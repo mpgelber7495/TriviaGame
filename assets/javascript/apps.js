@@ -5,25 +5,27 @@ var timerCountDown;
 
 function startGame() {
   $(".intro-holder").toggle();
-  addNewQuestion(questionPosition);
+  addNewQuestion();
   //   clearTimeout(questionCountDown);
   //   questionCountDown = setTimeout(listenForAnswer(), 30000);
-  listenForAnswer();
 }
 
-function addNewQuestion(questionPosition) {
+function addNewQuestion() {
   var questionText = questions[questionPosition]["questionPrompt"];
   var questionTextElement = `<p>${questionText}</p>`;
+  $(".answer-responder-holder").html("");
   $("#question-text-holder").html(questionTextElement);
   for (var i = 0; i < questions[questionPosition]["options"].length; i++) {
     var answerText = questions[questionPosition]["options"][i]["answer"];
     var answerTextElement = `<p>${answerText}</p>`;
     $(`#answer-holder-${i}`).html(answerTextElement);
   }
+  listenForAnswer();
 }
 
 function clearQuestionArea() {
   $("#question-text-holder").html("");
+  $(".question-count-down-clock").html("");
   for (var i = 0; i < questions[0]["options"].length; i++) {
     $(`#answer-holder-${i}`).html("");
   }
@@ -50,7 +52,8 @@ function listenForAnswer() {
     if (timeLeft < 1) {
       //   clearTimeout(questionCountDown);
       clearInterval(timerCountDown);
-      scoreBoard["outOfTime"]++;
+
+      displayOutOfTime();
       // DISPLAY SCREEN ABOUT OUT OF TIME
     }
   }, 1000);
@@ -74,6 +77,21 @@ function answerResponder(wasAnswerCorrect, answerID) {
     }
     //   setTimeout(addNewQuestion(questionPosition), 4000);
     questionPosition++;
-    setTimeout(addNewQuestion(), 4000);
+    setTimeout(addNewQuestion, 4000);
   }
+}
+
+function displayOutOfTime() {
+  clearQuestionArea();
+  var answerResponseText;
+  for (var i = 0; i < questions[questionPosition]["options"].length; i++) {
+    if (questions[questionPosition]["options"][i]["correct"] === true) {
+      answerResponseText = questions[questionPosition]["options"][i]["answer"];
+    }
+  }
+  $(".answer-responder-holder").html(
+    `<p>You're out of time! ${answerResponseText} was the right answer! Ya gotta think quicker buddy...</p>`
+  );
+  scoreBoard["outOfTime"]++;
+  setTimeout(addNewQuestion, 4000);
 }
