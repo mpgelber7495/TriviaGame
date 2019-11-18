@@ -17,17 +17,35 @@ function addNewQuestion(questionPosition) {
   }
 }
 
+function clearQuestionArea() {
+  $("#question-text-holder").html("");
+  for (var i = 0; i < questions[0]["options"].length; i++) {
+    $(`#answer-holder-${i}`).html("");
+  }
+}
+
 function listenForAnswer() {
   $(".answer-holder").click(function(event) {
     // answerID = event.currentTarget.id;
     answerIDString = event.currentTarget.id;
-    answerID = answerIDString[answerIDString.length - 1];
-    if (questions[questionPosition]["options"][answerID]["correct"] === true) {
-      console.log("You're Correct!");
-    } else if (
-      questions[questionPosition]["options"][answerID]["correct"] === false
-    ) {
-      console.log("incorret");
-    }
+    var answerID = answerIDString[answerIDString.length - 1];
+    wasAnswerCorrect =
+      questions[questionPosition]["options"][answerID]["correct"] === true;
+    answerResponder(wasAnswerCorrect, answerID);
   });
+}
+
+function answerResponder(wasAnswerCorrect, answerID) {
+  clearQuestionArea();
+  var answerResponseText =
+    questions[questionPosition]["options"][answerID]["answer"];
+  if (wasAnswerCorrect === true) {
+    $(".answer-responder-holder").html(
+      `<p>${answerResponseText} was the right answer! Awesome job, you must really know JAbby!</p>`
+    );
+  } else if (wasAnswerCorrect === false) {
+    $(".answer-responder-holder").html(
+      `<p>${answerResponseText} was INCORRECT... hope you're not invited to the wedding.</p>`
+    );
+  }
 }
