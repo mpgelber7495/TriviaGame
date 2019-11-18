@@ -1,0 +1,14 @@
+body {
+  font-family: "Kaushan Script", cursive;
+  background-image: url("/assets/images/jabby-background.jpg");
+}
+
+.container {
+  background-color: pink;
+}
+
+.answer-holder:hover {
+  font-weight: 900;
+  border: 2px solid rgb(253, 176, 189);
+  background-color: rgb(243, 140, 157);
+}
