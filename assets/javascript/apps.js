@@ -19,7 +19,20 @@ function addNewQuestion() {
     var answerTextElement = `<p>${answerText}</p>`;
     $(`#answer-holder-${i}`).html(answerTextElement);
   }
-  listenForAnswer();
+  var timeLeft = 30;
+  var clockText = `Time Remaining: ${timeLeft}`;
+  $(".question-count-down-clock").html(clockText);
+  timerCountDown = setInterval(function() {
+    timeLeft--;
+    var clockText = `Time Remaining: ${timeLeft}`;
+    $(".question-count-down-clock").html(clockText);
+
+    if (timeLeft < 1) {
+      clearInterval(timerCountDown);
+
+      displayOutOfTime();
+    }
+  }, 1000);
 }
 
 function clearQuestionArea() {
@@ -40,20 +53,6 @@ function listenForAnswer() {
         questions[questionPosition]["options"][answerID]["correct"] === true;
       answerResponder(wasAnswerCorrect, answerID);
     });
-    var timeLeft = 30;
-    var clockText = `Time Remaining: ${timeLeft}`;
-    $(".question-count-down-clock").html(clockText);
-    timerCountDown = setInterval(function() {
-      timeLeft--;
-      var clockText = `Time Remaining: ${timeLeft}`;
-      $(".question-count-down-clock").html(clockText);
-
-      if (timeLeft < 1) {
-        clearInterval(timerCountDown);
-
-        displayOutOfTime();
-      }
-    }, 1000);
   }
 }
 
