@@ -17,5 +17,14 @@ var questions = [
       { answer: "Math class", correct: true },
       { answer: "A friends house", correct: false }
     ]
+  },
+  {
+    questionPrompt: "What is Jesse and Abby's favorite holiday?",
+    options: [
+      { answer: "Friendsgiving", correct: true },
+      { answer: "The Fourth of July", correct: false },
+      { answer: "Jesses Bachelor party", correct: false },
+      { answer: "Abbys birthday", correct: false }
+    ]
   }
 ];

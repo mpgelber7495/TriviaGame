@@ -1,5 +1,4 @@
 var questionPosition = 0;
-
 var scoreBoard = newScoreBoard()[0];
 var questionCountDown;
 var timerCountDown;
@@ -7,8 +6,9 @@ var timerCountDown;
 function startGame() {
   $(".intro-holder").toggle();
   addNewQuestion(questionPosition);
-  clearTimeout(questionCountDown);
-  questionCountDown = setTimeout(listenForAnswer(), 30000);
+  //   clearTimeout(questionCountDown);
+  //   questionCountDown = setTimeout(listenForAnswer(), 30000);
+  listenForAnswer();
 }
 
 function addNewQuestion(questionPosition) {
@@ -31,7 +31,7 @@ function clearQuestionArea() {
 
 function listenForAnswer() {
   $(".answer-holder").click(function(event) {
-    clearTimeout(questionCountDown);
+    // clearTimeout(questionCountDown);
     clearInterval(timerCountDown);
     answerIDString = event.currentTarget.id;
     var answerID = answerIDString[answerIDString.length - 1];
@@ -47,8 +47,9 @@ function listenForAnswer() {
     var clockText = `Time Remaining: ${timeLeft}`;
     $(".question-count-down-clock").html(clockText);
 
-    if (timeLeft < 0) {
-      clearTimeout(questionCountDown);
+    if (timeLeft < 1) {
+      //   clearTimeout(questionCountDown);
+      clearInterval(timerCountDown);
       scoreBoard["outOfTime"]++;
       // DISPLAY SCREEN ABOUT OUT OF TIME
     }
@@ -56,18 +57,23 @@ function listenForAnswer() {
 }
 
 function answerResponder(wasAnswerCorrect, answerID) {
-  clearQuestionArea();
-  var answerResponseText =
-    questions[questionPosition]["options"][answerID]["answer"];
-  if (wasAnswerCorrect === true) {
-    $(".answer-responder-holder").html(
-      `<p>${answerResponseText} was the right answer! Awesome job, you must really know JAbby!</p>`
-    );
-    scoreBoard["correct"]++;
-  } else if (wasAnswerCorrect === false) {
-    $(".answer-responder-holder").html(
-      `<p>${answerResponseText} was INCORRECT... hope you're not invited to the wedding.</p>`
-    );
-    scoreBoard["incorrect"]++;
+  if (questionPosition <= questions.length) {
+    clearQuestionArea();
+    var answerResponseText =
+      questions[questionPosition]["options"][answerID]["answer"];
+    if (wasAnswerCorrect === true) {
+      $(".answer-responder-holder").html(
+        `<p>${answerResponseText} was the right answer! Awesome job, you must really know JAbby!</p>`
+      );
+      scoreBoard["correct"]++;
+    } else if (wasAnswerCorrect === false) {
+      $(".answer-responder-holder").html(
+        `<p>${answerResponseText} was INCORRECT... hope you're not invited to the wedding.</p>`
+      );
+      scoreBoard["incorrect"]++;
+    }
+    //   setTimeout(addNewQuestion(questionPosition), 4000);
+    questionPosition++;
+    setTimeout(addNewQuestion(), 4000);
   }
 }
