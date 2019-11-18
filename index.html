@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JAbby Trivia</title>
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body>
+    <div class="container h-100 mt-2">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center">JAbby Trivia</h1>
+        </div>
+      </div>
+      <div class="row intro-holder">
+        <div class="col-12 d-flex justify-content-center">
+          <h3>Welcome to Jabby Trivia!</h3>
+        </div>
+      </div>
+      <div class="row intro-holder">
+        <div class="col-12 text-center">
+          <p>
+            With this super fun game of trivia, you'll be thoroughly quizzed on
+            your knowledge of our favorite couple, Jesse and Abby (better known
+            as JAbby).
+          </p>
+        </div>
+      </div>
+      <div class="row intro-holder">
+        <div class="col-12 d-flex justify-content-center">
+          <button id="start-button" onclick="startGame()">Start</button>
+        </div>
+      </div>
+      <div class="row">
+        <div id="question-text-holder" class="col-12 text-center"></div>
+      </div>
+      <div class="row">
+        <div id="answer-holder-0" class="col-12 answer-holder"></div>
+      </div>
+      <div class="row">
+        <div id="answer-holder-1" class="col-12 answer-holder"></div>
+      </div>
+      <div class="row">
+        <div id="answer-holder-2" class="col-12 answer-holder"></div>
+      </div>
+      <div class="row">
+        <div id="answer-holder-3" class="col-12 answer-holder"></div>
+      </div>
+    </div>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- Questions Data -->
+    <script src="/assets/javascript/questions.js"></script>
+    <!-- Main Javscript -->
+    <script src="/assets/javascript/apps.js"></script>
+  </body>
+</html>
