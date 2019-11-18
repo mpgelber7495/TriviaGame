@@ -6,8 +6,6 @@ var timerCountDown;
 function startGame() {
   $(".intro-holder").toggle();
   addNewQuestion();
-  //   clearTimeout(questionCountDown);
-  //   questionCountDown = setTimeout(listenForAnswer(), 30000);
 }
 
 function addNewQuestion() {
@@ -33,7 +31,6 @@ function clearQuestionArea() {
 
 function listenForAnswer() {
   $(".answer-holder").click(function(event) {
-    // clearTimeout(questionCountDown);
     clearInterval(timerCountDown);
     answerIDString = event.currentTarget.id;
     var answerID = answerIDString[answerIDString.length - 1];
@@ -50,39 +47,39 @@ function listenForAnswer() {
     $(".question-count-down-clock").html(clockText);
 
     if (timeLeft < 1) {
-      //   clearTimeout(questionCountDown);
       clearInterval(timerCountDown);
 
       displayOutOfTime();
-      // DISPLAY SCREEN ABOUT OUT OF TIME
     }
   }, 1000);
 }
 
 function answerResponder(wasAnswerCorrect, answerID) {
-  if (questionPosition <= questions.length) {
-    clearQuestionArea();
-    var answerResponseText =
-      questions[questionPosition]["options"][answerID]["answer"];
-    if (wasAnswerCorrect === true) {
-      $(".answer-responder-holder").html(
-        `<p>${answerResponseText} was the right answer! Awesome job, you must really know JAbby!</p>`
-      );
-      scoreBoard["correct"]++;
-    } else if (wasAnswerCorrect === false) {
-      $(".answer-responder-holder").html(
-        `<p>${answerResponseText} was INCORRECT... hope you're not invited to the wedding.</p>`
-      );
-      scoreBoard["incorrect"]++;
-    }
-    //   setTimeout(addNewQuestion(questionPosition), 4000);
-    questionPosition++;
+  clearQuestionArea();
+  var answerResponseText =
+    questions[questionPosition]["options"][answerID]["answer"];
+  if (wasAnswerCorrect === true) {
+    $(".answer-responder-holder").html(
+      `<p>${answerResponseText} was the right answer! Awesome job, you must really know JAbby!</p>`
+    );
+    scoreBoard["correct"]++;
+  } else if (wasAnswerCorrect === false) {
+    $(".answer-responder-holder").html(
+      `<p>${answerResponseText} was INCORRECT... hope you're not invited to the wedding.</p>`
+    );
+    scoreBoard["incorrect"]++;
+  }
+  questionPosition++;
+  if (questionPosition < questions.length) {
     setTimeout(addNewQuestion, 4000);
+  } else if (questionPosition === questions.length) {
+    setTimeout(endGame, 4000);
   }
 }
 
 function displayOutOfTime() {
   clearQuestionArea();
+
   var answerResponseText;
   for (var i = 0; i < questions[questionPosition]["options"].length; i++) {
     if (questions[questionPosition]["options"][i]["correct"] === true) {
@@ -93,5 +90,15 @@ function displayOutOfTime() {
     `<p>You're out of time! ${answerResponseText} was the right answer! Ya gotta think quicker buddy...</p>`
   );
   scoreBoard["outOfTime"]++;
-  setTimeout(addNewQuestion, 4000);
+  questionPosition++;
+  if (questionPosition < questions.length) {
+    setTimeout(addNewQuestion, 4000);
+  } else if (questionPosition === questions.length) {
+    endGame();
+  }
+}
+
+function endGame() {
+  var endOfGameScoreHTML = `<p>Correct Answers: ${scoreBoard["correct"]}</p><p>Incorrect Answers: ${scoreBoard["incorrect"]}</p><p>Questions lost to time: ${scoreBoard["outOfTime"]}</p>`;
+  $(".score-board").html(endOfGameScoreHTML);
 }
