@@ -1,3 +1,13 @@
+function newScoreBoard() {
+  return [
+    {
+      correct: 0,
+      incorrect: 0,
+      outOfTime: 0
+    }
+  ];
+}
+
 var questions = [
   {
     questionPrompt: "Where did Jesse and Abby meet?",
