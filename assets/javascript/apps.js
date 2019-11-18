@@ -6,6 +6,7 @@ var timerCountDown;
 function startGame() {
   $(".intro-holder").toggle();
   addNewQuestion();
+  listenForAnswer();
 }
 
 function addNewQuestion() {
@@ -30,28 +31,30 @@ function clearQuestionArea() {
 }
 
 function listenForAnswer() {
-  $(".answer-holder").click(function(event) {
-    clearInterval(timerCountDown);
-    answerIDString = event.currentTarget.id;
-    var answerID = answerIDString[answerIDString.length - 1];
-    wasAnswerCorrect =
-      questions[questionPosition]["options"][answerID]["correct"] === true;
-    answerResponder(wasAnswerCorrect, answerID);
-  });
-  var timeLeft = 30;
-  var clockText = `Time Remaining: ${timeLeft}`;
-  $(".question-count-down-clock").html(clockText);
-  timerCountDown = setInterval(function() {
-    timeLeft--;
+  if (questionPosition < questions.length) {
+    $(".answer-holder").click(function(event) {
+      clearInterval(timerCountDown);
+      answerIDString = event.currentTarget.id;
+      var answerID = answerIDString[answerIDString.length - 1];
+      wasAnswerCorrect =
+        questions[questionPosition]["options"][answerID]["correct"] === true;
+      answerResponder(wasAnswerCorrect, answerID);
+    });
+    var timeLeft = 30;
     var clockText = `Time Remaining: ${timeLeft}`;
     $(".question-count-down-clock").html(clockText);
+    timerCountDown = setInterval(function() {
+      timeLeft--;
+      var clockText = `Time Remaining: ${timeLeft}`;
+      $(".question-count-down-clock").html(clockText);
 
-    if (timeLeft < 1) {
-      clearInterval(timerCountDown);
+      if (timeLeft < 1) {
+        clearInterval(timerCountDown);
 
-      displayOutOfTime();
-    }
-  }, 1000);
+        displayOutOfTime();
+      }
+    }, 1000);
+  }
 }
 
 function answerResponder(wasAnswerCorrect, answerID) {
@@ -94,7 +97,7 @@ function displayOutOfTime() {
   if (questionPosition < questions.length) {
     setTimeout(addNewQuestion, 4000);
   } else if (questionPosition === questions.length) {
-    endGame();
+    setTimeout(endGame, 4000);
   }
 }
 
