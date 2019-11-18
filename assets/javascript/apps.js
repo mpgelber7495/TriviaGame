@@ -99,6 +99,14 @@ function displayOutOfTime() {
 }
 
 function endGame() {
-  var endOfGameScoreHTML = `<p>Correct Answers: ${scoreBoard["correct"]}</p><p>Incorrect Answers: ${scoreBoard["incorrect"]}</p><p>Questions lost to time: ${scoreBoard["outOfTime"]}</p>`;
+  $(".answer-responder-holder").html("");
+  var endOfGameScoreHTML = `<h3>Game over</h3><p>Correct Answers: ${scoreBoard["correct"]}</p><p>Incorrect Answers: ${scoreBoard["incorrect"]}</p><p>Questions lost to time: ${scoreBoard["outOfTime"]}</p><button id = "start-over-button" onclick="startOver()">Start Over?<button>`;
   $(".score-board").html(endOfGameScoreHTML);
+}
+
+function startOver() {
+  scoreBoard = newScoreBoard()[0];
+  questionPosition = 0;
+  addNewQuestion();
+  $(".score-board").html("");
 }
