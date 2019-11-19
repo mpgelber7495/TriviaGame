@@ -39,6 +39,15 @@ var questions = [
     ]
   },
   {
+    questionPrompt: "Where is Jesse and Abby's wedding going to be?",
+    options: [
+      { answer: "Jesse's college fraternity house", correct: false },
+      { answer: "Trump Vineyard", correct: false },
+      { answer: "A normal vineyard in Charlottesville", correct: true },
+      { answer: "The Hotel Louis outside of Charlottesville", correct: false }
+    ]
+  },
+  {
     questionPrompt: "When did these love birds get engaged?",
     options: [
       { answer: "November 18th", correct: false },
