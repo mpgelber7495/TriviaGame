@@ -1,6 +1,6 @@
 body {
   font-family: "Kaushan Script", cursive;
-  background-image: url("/assets/images/jabby-background.jpg");
+  background-image: url("./assets/images/jabby-background.jpg");
 }
 h1 {
   font-size: 50px;
