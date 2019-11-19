@@ -66,37 +66,42 @@ function answerResponder(wasAnswerCorrect, answerID) {
     );
     scoreBoard["correct"]++;
   } else if (wasAnswerCorrect === false) {
+    correctAnswerText = findCorrectAnswer();
     $(".answer-responder-holder").html(
-      `<p>${answerResponseText} was INCORRECT... hope you're not invited to the wedding.</p>`
+      `<p>${answerResponseText} was INCORRECT. ${correctAnswerText} was the right answer... hope you're not invited to the wedding.</p>`
     );
     scoreBoard["incorrect"]++;
   }
   questionPosition++;
   if (questionPosition < questions.length) {
-    setTimeout(addNewQuestion, 4000);
+    setTimeout(addNewQuestion, 3500);
   } else if (questionPosition === questions.length) {
-    setTimeout(endGame, 4000);
+    setTimeout(endGame, 3500);
   }
+}
+
+function findCorrectAnswer() {
+  for (var i = 0; i < questions[questionPosition]["options"].length; i++) {
+    if (questions[questionPosition]["options"][i]["correct"] === true) {
+      var correctAnswerText =
+        questions[questionPosition]["options"][i]["answer"];
+    }
+  }
+  return correctAnswerText;
 }
 
 function displayOutOfTime() {
   clearQuestionArea();
-
-  var answerResponseText;
-  for (var i = 0; i < questions[questionPosition]["options"].length; i++) {
-    if (questions[questionPosition]["options"][i]["correct"] === true) {
-      answerResponseText = questions[questionPosition]["options"][i]["answer"];
-    }
-  }
+  answerResponseText = findCorrectAnswer();
   $(".answer-responder-holder").html(
     `<p>You're out of time! ${answerResponseText} was the right answer! Ya gotta think quicker buddy...</p>`
   );
   scoreBoard["outOfTime"]++;
   questionPosition++;
   if (questionPosition < questions.length) {
-    setTimeout(addNewQuestion, 4000);
+    setTimeout(addNewQuestion, 3500);
   } else if (questionPosition === questions.length) {
-    setTimeout(endGame, 4000);
+    setTimeout(endGame, 3500);
   }
 }
 
