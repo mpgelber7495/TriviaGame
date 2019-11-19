@@ -29,6 +29,22 @@ button {
   color: bisque;
 }
 
+.question-count-down-clock {
+  font-size: 30px;
+  color: rgb(152, 32, 52);
+}
+
+#question-text-holder {
+  font-size: 28px;
+  margin-bottom: 15px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.answer-holder {
+  font-size: 20px;
+}
+
 .answer-holder:hover {
   font-weight: 900;
   border: 2px solid rgb(253, 176, 189);
