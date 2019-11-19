@@ -50,3 +50,7 @@ button {
   border: 2px solid rgb(253, 176, 189);
   background-color: rgb(243, 140, 157);
 }
+
+.answer-responder-holder {
+  font-size: 25px;
+}
