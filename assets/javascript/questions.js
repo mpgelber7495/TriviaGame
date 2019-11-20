@@ -55,5 +55,14 @@ var questions = [
       { answer: "August 16th", correct: false },
       { answer: "September 4th", correct: false }
     ]
+  },
+  {
+    questionPrompt: "Where will Jesse and Abby be going on this Saturday?",
+    options: [
+      { answer: "A Zoo", correct: false },
+      { answer: "The coolest, craziest event ever", correct: false },
+      { answer: "Take Your Shoes Off at Bowery Electric", correct: false },
+      { answer: "All of the above!!!", correct: true }
+    ]
   }
 ];
